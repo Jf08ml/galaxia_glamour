@@ -129,6 +129,7 @@ const DayModalEmployeeColumn: FC<EmployeeColumnProps> = ({
       startHour,
     ]
   );
+
   // Configuración de la zona drop (columna)
   const [{ isOver }, dropRef] = useDrop(() => ({
     accept: ItemTypes.APPOINTMENT,
