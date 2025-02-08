@@ -83,18 +83,18 @@ const DayModalEmployeeColumn: FC<EmployeeColumnProps> = ({
 
       // Ajustamos la posición (y) de donde se suelta
       const scrollOffset = columnRef.current.scrollTop || 0;
-      const correctedY = mousePos.y / devicePixelRatio;
-      const yTop = correctedY - boundingRect.top - item.offsetY + scrollOffset;
+      const correctedY = (mousePos.y - boundingRect.top) / devicePixelRatio;
+      const yTop = correctedY - item.offsetY + scrollOffset;
 
       // Convertir posición vertical a “minutos desde el inicio de la jornada”
-      const totalMinutes = (yTop / HOUR_HEIGHT) * 60;
+      const totalMinutes = Math.round((yTop / HOUR_HEIGHT) * 60);
       const snappedMinutes = snapToQuarter(totalMinutes); // redondea a 15 min
       const hourOffset = Math.floor(snappedMinutes / 60);
       const minuteOffset = snappedMinutes % 60;
 
       // Generar nueva fecha de inicio usando startHour
       const newStartDate = new Date(selectedDay);
-      newStartDate.setHours(startHour + hourOffset, minuteOffset, 0, 0);
+      newStartDate.setHours(startHour + hourOffset, minuteOffset, 0, 0);      
 
       // Buscar la cita original y calcular su duración
       const originalAppointment = allAppointments.find(
@@ -129,7 +129,6 @@ const DayModalEmployeeColumn: FC<EmployeeColumnProps> = ({
       startHour,
     ]
   );
-
   // Configuración de la zona drop (columna)
   const [{ isOver }, dropRef] = useDrop(() => ({
     accept: ItemTypes.APPOINTMENT,
