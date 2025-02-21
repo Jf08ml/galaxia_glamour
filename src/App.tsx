@@ -157,6 +157,7 @@ function App() {
             )}
           </Flex>
         </AppShell.Header>
+
         <AppShell.Navbar
           p="md"
           bg="#1A202C"
@@ -164,6 +165,7 @@ function App() {
         >
           <NavbarLinks closeNavbar={close} />
         </AppShell.Navbar>
+        
         <AppShell.Main style={{ height: "100vh", overflow: "auto" }}>
           <Routes>
             {generalRoutes.map((route, index) => (
